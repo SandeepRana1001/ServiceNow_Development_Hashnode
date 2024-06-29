@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2024-06-29 23:19:30">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Human Resources: Core">d4ac3fff5b311200a4656ede91f91af2</application>
+<application_name>Human Resources: Core</application_name>
+<application_scope>sn_hr_core</application_scope>
+<application_version>19.0.0</application_version>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>Todo List Widget </description>
+<inserted/>
+<name>TODO_LIST_WIDGET_V1.0</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>a14e651a47b68a50c2e1a3e7826d430c</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>sandrana</sys_created_by>
+<sys_created_on>2024-06-29 23:19:29</sys_created_on>
+<sys_id>d81b171e474fce90c2e1a3e7826d439d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>sandrana</sys_updated_by>
+<sys_updated_on>2024-06-29 23:19:29</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Human Resources: Core">d4ac3fff5b311200a4656ede91f91af2</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_4c66ace547728650c2e1a3e7826d43a8</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller=function($scope,spUtil) {
+  /* widget controller */
+  var c = this;
+	
+	c.data = [];
+	
+	c.addItem = function(){
+		var item = $scope.item;
+		c.data.push(item);
+		$scope.item='';
+	}
+	
+	c.deleteItem = function(indexToRemove,value){
+		if (indexToRemove &gt; -1) {
+    c.data.splice(indexToRemove, 1);
+		spUtil.addInfoMessage(value+' Removed from the list');
+}
+	}
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.list-container{
+	margin:20px 0;
+}
+li{
+	transition:all 0.5s ease-in-out;
+  cursor:pointer;
+}
+li:hover{
+	transform:translateX(20px);
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;todo-list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]&gt;&lt;/link&gt;&lt;name&gt;Todo List&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;sandrana&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-06-14 15:59:42&lt;/sys_created_on&gt;&lt;sys_id&gt;4c66ace547728650c2e1a3e7826d43a8&lt;/sys_id&gt;&lt;sys_mod_count&gt;68&lt;/sys_mod_count&gt;&lt;sys_name&gt;Todo List&lt;/sys_name&gt;&lt;sys_package display_value="Human Resources: Core" source="sn_hr_core"&gt;d4ac3fff5b311200a4656ede91f91af2&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Human Resources: Core"&gt;d4ac3fff5b311200a4656ede91f91af2&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_4c66ace547728650c2e1a3e7826d43a8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;sandrana&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-06-17 05:12:47&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;input
+      type="text"
+      class="form-control"
+      ng-model="item"
+      placeholder="Enter an item"
+    /&gt;
+  &lt;/div&gt;
+  &lt;button class="btn btn-success btn-block" ng-click="c.addItem()"&gt;
+    Add Item
+  &lt;/button&gt;
+
+  &lt;div class="list-container"&gt;
+    &lt;ul class="list-group"&gt;
+      &lt;li
+        class="list-group-item"
+        ng-repeat="(index,value) in c.data"
+        ng-click="c.deleteItem(index,value)"
+      &gt;
+        {{value}}
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-1688569484</payload_hash>
+<remote_update_set display_value="TODO_LIST_WIDGET_V1.0">d81b171e474fce90c2e1a3e7826d439d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>sandrana</sys_created_by>
+<sys_created_on>2024-06-29 23:19:29</sys_created_on>
+<sys_id>dc1b171e474fce90c2e1a3e7826d439d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>190249cb3360000001</sys_recorded_at>
+<sys_updated_by>sandrana</sys_updated_by>
+<sys_updated_on>2024-06-29 23:19:29</sys_updated_on>
+<table/>
+<target_name>Todo List</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_guid>2c4f215aa2b68a509e9b72890a53ece4</update_guid>
+<update_guid_history>2c4f215aa2b68a509e9b72890a53ece4:-1688569484,a2ee291a0db68a50aa77549da0f025c9:-1054074719,22ce6d1a24b68a5055426a72a4152585:-2061862618,98ae6d1a4fb68a50607a1fe752c7a01d:573606540,653e65d620b68a50cbc31f4a5bee2c27:-1257226846,f5bec5423ffe0a509eae1956ee85c298:-207638734,5dae4942e1fe0a5035e91c938e151137:1075208072,2a8ec90262fe0a5029122e4b72d31d33:-1271184749,4f7ec10258fe0a50d49e6ac13612885d:-805156944,4b5ec502edfe0a5011483075843da863:-254362017,cd5ec5ce49be0a502aadb7b1d815a3a6:-1598517604,fced090213fe0a50833439ad68a85323:-887311456,2bbdcdce4fbe0a50102cac4edbdb41b6:-1650625997,93ad05026bfe0a507bbf88acc870aac8:-1920529677,1a9d0502defe0a503ed59a7762d172c1:-358536930,7d8dcdcef8be0a50665058ab3151ce7b:-11134020,c36d410239fe0a507592e1a46668700f:257960463,3a5dcdcea3be0a505befae49ceaf6975:-1903236597,2c4d8d8eedbe0a50a0cef4e5a35d5048:-841397083,e30dc90ed4be0a5097084d9a285d5aa8:-1271460334,cafc8d8e42be0a5072288d445228840a:179139246,9abc4d0abcbe0a501c3805777d206c8e:230300860,ec9c498a8ebe0a5079b5a7d18510b8f0:498913323,849c8d8e3dbe0a50dc0e09238c80cb04:-876282524,c56c098e27be0a508fd68264ddc053d4:2070092486,505cc94ee9be0a501653caa4c7636e40:-239611712,1f3cc94e72be0a503e94e616c2497e39:1358031010,fd2c458af8be0a5057250d9bfff8a06c:-1616209566,89bb458a43be0a509f372dc04b437366:375351792,f12bc90e5bbe0a50560fcacb92b43f77:104046878,1cca010ed9be0a50a1bdc92795b395fd:489871528,6c7a010eb5be0a50e854fee1f8848b1c:1686877564,54e905caa5be0a50d582bc56cfc70571:-1612527369,b379c18a6fbe0a50ff6f7ffce833f729:1315362466,0b69898a3dbe0a5097ff481c661b33ed:-1091200328,0759814ad6be0a5090b1515982d7ee92:1525090072,1529054a8cbe0a503bfe604f1887928c:-736687451,b509cd4aa4be0a50232911fa80f048ce:-627213651,31e8cd0a43be0a500c708c0a375551f1:1247692697,a258850a3cbe0a50927f8d948cffbfb6:-1446819687,ea48814ab8be0a50ef73fbb900e8e688:778593429,2538014a06be0a503422a5196ac06ab2:1793770757,b1284d0a6bbe0a50186f99598d2850e4:353001345,b4188142b3be0a50281f8775f32783d8:1144952179,8b08090a66be0a50aa06f6c9b72b3eb2:-742848397,81d7090a7cbe0a503ab6fd603b72634a:-51264283,2ec785c677be0a508179abc855b4e122:-487272467,12b745c644be0a5016da818a45a564fb:481688566,b8b741c6c6be0a502a51c718324d365f:-1824294694,2c8749c675be0a5090725cc26f7c6aee:814865741,c3670dc61abe0a50847fc5b73e0db30a:-774151008,e65749c67ebe0a5043965b6d5d5a5ae8:-1905164708,7527054202be0a50aaff2df2cbc1584e:188954166,110741c6acbe0a5004cf94ef31dfd638:1550113641,32e68d8284be0a50ae683f289992ecd1:-582284227,f084cd0ee77e0a50fda3f004ddcb4910:862012091,0fa30542e9be0a503478c17d71ecd546:-1850896087,be02450a3a7e0a508c534a32351ccd5e:253507358,6a0b09e598368650ae17341be4b259a6:442716790,71fa89e54136865021dbe02d58d2282c:-457196277,d0ea05e5ea3686505806ae032e87fd91:442716790,973a89a5db3686503df585370b986447:-801054079,dd3a49a5dd368650085cd4bf60849926:442716790,628860a969728650e75e12169029b479:-801054079,b8782429a27286508b961f4a41bddd9e:-748478388,6c4824298a72865071432919e6aa2b90:2046457781,46f768a5c37286503c42643631504b09:1186995110,73f6e029a8728650117d95a7416226d6:-311470353,6f8628a591728650c0c1b7f6d8c75204:-2009091245</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
