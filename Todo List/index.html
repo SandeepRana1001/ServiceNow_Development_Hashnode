@@ -1,0 +1,25 @@
+<div>
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      ng-model="item"
+      placeholder="Enter an item"
+    />
+  </div>
+  <button class="btn btn-success btn-block" ng-click="c.addItem()">
+    Add Item
+  </button>
+
+  <div class="list-container">
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        ng-repeat="(index,value) in c.data"
+        ng-click="c.deleteItem(index,value)"
+      >
+        {{value}}
+      </li>
+    </ul>
+  </div>
+</div>

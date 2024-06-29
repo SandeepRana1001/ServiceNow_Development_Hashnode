@@ -1,0 +1,10 @@
+.list-container {
+  margin: 20px 0;
+}
+li {
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+li:hover {
+  transform: translateX(20px);
+}
