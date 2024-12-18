@@ -1,0 +1,25 @@
+<div>
+
+    <div class="form-group">
+        <label>Select Caller: </label>
+        <select class="form-control" ng-model="caller" ng-change="getIncidentRecords()">
+            <option ng-repeat="caller in data.callers track by $index" value="{{caller.sys_id}}">
+                {{caller.name}}
+            </option>
+        </select>
+    </div>
+
+    <div ng-if="data.incident_nums.length>0">
+        <h2 class="text-center">
+            Incidents Created For This Caller
+        </h2>
+
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="incident in data.incident_nums track by $index">
+                {{incident.number}}
+            </li>
+
+        </ul>
+
+    </div>
+</div>

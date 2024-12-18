@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2024-12-18 14:08:21">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>Caller_Incident_Widget_V1.0</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>eafd0769c3ae5210d825dd777d0131f3</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>sandrana</sys_created_by>
+<sys_created_on>2024-12-18 14:08:20</sys_created_on>
+<sys_id>675e0b69c3ae5210d825dd777d0131a7</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>sandrana</sys_updated_by>
+<sys_updated_on>2024-12-18 14:08:20</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_53ef22a5c32e5210d825dd777d01319c</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function ($scope) {
+  /* widget controller */
+  var c = this;
+
+  $scope.caller = null;
+
+  $scope.getIncidentRecords = function () {
+    c.data.sys_id = $scope.caller;
+    c.server.update();
+  };
+};
+]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.list-group {
+  transition: all 0.5s ease-in-out;
+}
+
+.list-group-item:hover {
+  background-color: #27ae60;
+  color: white;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;caller_incident_widget&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]&gt;&lt;/link&gt;&lt;name&gt;Caller_Incident_Widget&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function () {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  data.incident_nums = [];
+  data.callers = [];
+
+  var obj = {};
+
+  var glide = new GlideAggregate("incident");
+  glide.groupBy("caller_id");
+  glide.addAggregate("Count");
+  glide.query();
+
+  var arr = [];
+  while (glide.next()) {
+    obj = {};
+    var caller = glide.getDisplayValue("caller_id");
+    var count = glide.getAggregate("Count");
+    var caller_sys_id = glide.caller_id.toString();
+
+    var str = caller + "(" + count + ")";
+    obj.sys_id = caller_sys_id;
+    obj.name = str;
+    arr.push(obj);
+  }
+
+  data.callers = arr;
+
+  if (input.sys_id) {
+    var glides = new GlideRecord("incident");
+    glides.addEncodedQuery("caller_id=" + input.sys_id);
+    glides.query();
+
+    while (glides.next()) {
+      obj = {
+        number: glides.number.toString(),
+      };
+      data.incident_nums.push(obj);
+    }
+  }
+})();
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;sandrana&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-12-18 11:55:46&lt;/sys_created_on&gt;&lt;sys_id&gt;53ef22a5c32e5210d825dd777d01319c&lt;/sys_id&gt;&lt;sys_mod_count&gt;53&lt;/sys_mod_count&gt;&lt;sys_name&gt;Caller_Incident_Widget&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_53ef22a5c32e5210d825dd777d01319c&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;sandrana&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-12-18 14:07:20&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Select Caller: &lt;/label&gt;
+    &lt;select class="form-control" ng-model="caller" ng-change="getIncidentRecords()"&gt;
+      &lt;option ng-repeat="caller in data.callers track by $index" value="{{caller.sys_id}}"&gt;
+        {{caller.name}}
+      &lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+
+  &lt;div ng-if="data.incident_nums.length&gt;0"&gt;
+    &lt;h2 class="text-center"&gt;
+      Incidents Created For This Caller
+    &lt;/h2&gt;
+
+    &lt;ul class="list-group"&gt;
+      &lt;li class="list-group-item" ng-repeat="incident in data.incident_nums track by $index"&gt;
+        {{incident.number}}
+      &lt;/li&gt;
+
+    &lt;/ul&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;sys_es_latest_script action="INSERT_OR_UPDATE"&gt;&lt;id&gt;53ef22a5c32e5210d825dd777d01319c&lt;/id&gt;&lt;sys_created_by&gt;sandrana&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-12-18 11:55:45&lt;/sys_created_on&gt;&lt;sys_id&gt;2d007aa1c32e5210d825dd777d0131f0&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;sandrana&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-12-18 11:55:45&lt;/sys_updated_on&gt;&lt;table&gt;sp_widget&lt;/table&gt;&lt;use_es_latest&gt;true&lt;/use_es_latest&gt;&lt;/sys_es_latest_script&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-140261162</payload_hash>
+<remote_update_set display_value="Caller_Incident_Widget_V1.0">675e0b69c3ae5210d825dd777d0131a7</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>sandrana</sys_created_by>
+<sys_created_on>2024-12-18 14:08:20</sys_created_on>
+<sys_id>6b5e0b69c3ae5210d825dd777d0131a7</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>193da18366f0000001</sys_recorded_at>
+<sys_updated_by>sandrana</sys_updated_by>
+<sys_updated_on>2024-12-18 14:08:20</sys_updated_on>
+<table/>
+<target_name>Caller_Incident_Widget</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_guid>f42e4369c4ae52109a08a2c1d8435b8d</update_guid>
+<update_guid_history>f42e4369c4ae52109a08a2c1d8435b8d:-140261162,34f5cbed046e521099332a82a4187778:1494585227,14f543edac6e52101168dd882bc02069:1915140757,48c5cbed9e6e521086fc6e261bb5cb72:1455818217,4bb5cbedea6e5210faaa95fe9eae491a:1791850663,35b58bed8a6e5210be6f50698c9008b9:-2102064552,37a58f6d3f6e52107f1631fb6ef905e9:-1354733869,7f8503ad9b6e52108e2c682cec45c0c0:-1737195471,ef7507ad926e52102fe8cd4e7ec9334f:225567575,2a05c76d566e52103f614f2385972796:2113718980,d1f4c76d476e5210e0d859dbc703beb4:-1931508928,90f407adb66e5210b4c7b688b8af346e:704750551,749407add56e52109fa099b45856f73a:1589182315,0e640b6d956e521020987b013d4f96f7:-461908409,6844c76dd96e5210a8788785b01d75ab:1589182315,dc048fe9e26e521095299a93e22aeb1f:-351625937,98f3476dd66e521016f77569c3e7b3da:-1918188264,97b3872deb6e52103c3d26d7c7eb9fff:-1652057974,bfa3c3ed8a2e5210c83dce2f0768b2f6:-678114898,f8a38b2d016e5210002a2f84dd423ad4:-1286671789,27638ba9b36e5210b3165874cf1327bc:-1245047554,df43c32ddb6e5210c460efdc0c5f4398:-1791311559,6d134be9816e5210e962c62aed340b04:-305962150,bae2c32d606e5210f75f05be8b947c92:424337864,f8d28fe9a06e5210b087d8a7c057ec33:75506208,f4a207a56e6e52106572e55983fc776f:-1241005149,50620be9d36e5210a4e45813c5e965fc:-2051906562,6a28b6ad992e52101f0a826f615cee2a:542085933,0f18baede32e52101996c0da62c89356:1905221288,3ef7b6ada32e5210a818531748778d41:499222418,0197b6ad992e5210d8678bcc7c91b2f0:-407895333,9a87fa6dbc2e5210b51d3d7755b2b5cb:1574567640,6817b6ad3a2e5210271c3ee1467960e8:1202763826,1207fa6d2e2e521042a9ffa5c8a4c4dd:1512131347,9fd6726d762e52105dd583dcec712075:1709366950,6c86ba6da92e52109abc2084402d3ad5:-109400534,1b767a6d8e2e52100aad37dd3981477c:725862484,bb667a6d592e5210b492a838a043cb5d:1238315667,4756f62daa2e5210db9e20f7c116d9e6:1665689081,e106b26d352e52103992855cdcca7a9c:-153630869,7fe5f2e9e62e52102f7df65df61c77ed:406255835,3034fea9ce2e52104971f210b95c4cb1:-2086075514,0c24fea9062e52107c0f591195f798aa:-1124848181,6414b2a5e02e5210240baf1bc2c01b2a:619069613,77b33aa9822e5210f302e1007807a26f:-914347969,899336a9be2e52108f5d9d2b077b2479:-1166250478,52837a29e72e5210f89669386a20f59a:-835215774,ec73f629632e52100138594a7c0aa4be:-1105994047,2a637a29062e5210bd19c5c03eecb980:1960614846,6512f6293f2e5210cb3c7fdafd85d749:-1308402939,d3e132a5ee2e521059fce649abe6cba7:628698249,b61136a5762e52107c8141033a013cb7:-1697459697,591132a5ce2e5210589b674e1e269ec8:-973027994,3100f6a1662e52101a058da343625768:90056068</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
