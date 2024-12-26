@@ -1,0 +1,70 @@
+:root {
+  --gradient-front: linear-gradient(
+    to right bottom,
+    rgba(46, 204, 113, 1),
+    rgba(39, 174, 96, 1)
+  );
+  --gradient-back: linear-gradient(
+    to right bottom,
+    rgba(155, 89, 182, 1),
+    rgba(142, 68, 173, 1)
+  );
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  margin: auto;
+  margin-top: 20px;
+  height: 100%;
+  width: 300px;
+  perspective: 15000rem;
+  -moz-perspective: 150rem;
+  position: relative;
+}
+
+.card__side {
+  height: 300px;
+  width: inherit;
+  transition: all 2s ease-in-out; /* reduce time to make the transition go more faster*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+}
+
+.card__side--front {
+  background: var(--gradient-front);
+  z-index: 1;
+}
+
+.card__side--back {
+  background: var(--gradient-back);
+  transform: rotateY(180deg);
+  z-index: -1;
+}
+
+.card:hover .card__side--front {
+  transform: rotateY(180deg);
+  z-index: -1;
+}
+
+.card:hover .card__side--back {
+  transform: rotateY(0);
+  z-index: 1;
+}
+
+.card__text {
+  color: white !important;
+  font-size: 40px;
+  text-align: center;
+  margin: 50px 0;
+}
